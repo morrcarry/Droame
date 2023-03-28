@@ -11,11 +11,11 @@ app.get("/",function(req,res){
   res.sendFile(__dirname + "/signup.html");
 });
 
-app.post("/",function(req,res){
+app.post("/",function(req,res){                            /1.It will take the name and email for booking.
   const firstName = req.body.fName;
   const lastName = req.body.lName;
   const email = req.body.email;
-  const data={
+  const data={                                             /2. It will store all the credentials.
     members:[
       {
         email_address:email,
@@ -29,20 +29,20 @@ app.post("/",function(req,res){
     ]
   };
 
-  const jsonData=JSON.stringify(data);
-  const url="https://us21.api.mailchimp.com/3.0/lists/7e9fd2c3a3";
+  const jsonData=JSON.stringify(data);                      /3.Data converted to string format .
+  const url=//audience key
 
-  const options={
+  const options={                                            /4.Post request send to store data on mailchimp server using audience key;
     method:"POST",
-    auth:"morrcarry:b924285a5b7222295f78e87395d5a651-us21"
+    auth://author name;
   }
 
 const request=https.request(url,options,function(response){
 
   if(response.statusCode===200){
-    res.sendFile(__dirname +"/succes.html");
+    res.sendFile(__dirname +"/succes.html");                 /5.In case of succesfull booking ,it will show success page;
   }else{
-    res.sendFile(__dirname +"/failure.html");
+    res.sendFile(__dirname +"/failure.html");                /6.In case of failure , error page will show;
   }
 
   response.on("data",function(data){
@@ -50,7 +50,7 @@ const request=https.request(url,options,function(response){
   })
 })
 
-request.write(jsonData);
+request.write(jsonData);                                     
 request.end();
 
 });
@@ -63,5 +63,4 @@ app.listen(process.env.PORT || 3000,function(){
   console.log("Server is running on port 3000");
 });
 
-//b924285a5b7222295f78e87395d5a651-us21
-//audience key 7e9fd2c3a3
+
